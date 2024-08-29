@@ -1,5 +1,5 @@
 <template>
-  <Menu v-if="!isMobile" class="w-full h-full max-w-[300px] mr-2" :model="items">
+  <Menu v-if="!isMobile" class="w-[300px] h-full max-w-[300px] mr-2" :model="items">
     <template #start>
       <UserInfo />
     </template>
@@ -12,7 +12,7 @@
       </router-link>
     </template>
   </Menu>
-  <div v-else class="fixed top-8 left-8">
+  <div v-else class="fixed top-6 left-6">
       <Button 
         icon="pi pi-ellipsis-v"
         rounded

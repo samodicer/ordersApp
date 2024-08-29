@@ -1,11 +1,11 @@
 <template>
   <div class="w-full h-full flex">
-      <SideMenu/>
-      <Card class="w-full">
-        <template #content>
-          <router-view />
-        </template>
-      </Card>
+    <SideMenu/>
+    <Card class="w-full">
+      <template #content>
+        <router-view />
+      </template>
+    </Card>
   </div>
 </template>
 
