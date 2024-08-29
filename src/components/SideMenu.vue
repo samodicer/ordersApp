@@ -13,7 +13,8 @@
     </template>
   </Menu>
   <div v-else class="fixed top-6 left-6">
-      <Button 
+      <Button
+        class="z-100"
         icon="pi pi-ellipsis-v"
         rounded
         aria-haspopup="true" 
@@ -49,6 +50,11 @@ const isMobile = breakpoints.smaller('md');
 const menu = ref();
 
 const items = ref([
+{
+    label: 'Profile',
+    icon: 'pi pi-user',
+    route: '/profile'
+  },
   {
     label: 'Orders',
     icon: 'pi pi-receipt',
@@ -57,7 +63,7 @@ const items = ref([
   {
     label: 'Categories',
     icon: 'pi pi-objects-column',
-    route: '/orders'
+    route: '/categories'
   }
 ]);
 

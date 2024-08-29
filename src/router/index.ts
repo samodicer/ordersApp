@@ -8,6 +8,14 @@ const routes = [
     redirect: '/orders',
     children: [
       {
+        path: '/profile',
+        component: () => import('@/views/ProfileView.vue'),
+        name: 'Profile',
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: '/orders',
         component: () => import('@/views/OrdersView.vue'),
         name: 'Orders',
@@ -16,9 +24,9 @@ const routes = [
         }
       },
       {
-        path: '/profile',
-        component: () => import('@/views/ProfileView.vue'),
-        name: 'Profile',
+        path: '/categories',
+        component: () => import('@/views/CategoriesView.vue'),
+        name: 'Categories',
         meta: {
           requiresAuth: true
         }
