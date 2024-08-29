@@ -1,8 +1,11 @@
 <template>
-  <p class="text-3xl text-red-800">TW</p>
+  <div class="h-lvh p-4 bg-slate-100">
+    <router-view />
+  <!-- <p class="text-3xl text-red-800">TW</p>
   <Button v-if="!logged" label="Submit" @click="login">Login</Button>
   <Button label="Submit" @click="getStaff">Get</Button>
-  <Button v-if="logged" label="Submit" @click="logout">Logout</Button>
+  <Button v-if="logged" label="Submit" @click="logout">Logout</Button> -->
+  </div>
 </template>
 
 <script setup lang="ts">
