@@ -1,6 +1,6 @@
-import request from '../api'
+import request from './api'
 
-export function apiLoginUser(data: { email: string; password: string }) {
+export const apiLoginUser = (data: { email: string; password: string }) => {
   return request({
     url: '/login',
     method: 'post',
@@ -8,21 +8,21 @@ export function apiLoginUser(data: { email: string; password: string }) {
   })
 }
 
-export function apiLogoutUser() {
+export const apiLogoutUser = () => {
   return request({
     url: '/logout',
     method: 'post'
   })
 }
 
-export function apiGetUser() {
+export const apiGetUser = () => {
   return request({
     url: 'api/user',
     method: 'get'
   })
 }
 
-export function apiGetOrder() {
+export const apiGetOrder = () => {
   return request({
     url: 'api/orders',
     method: 'get'

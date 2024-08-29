@@ -18,20 +18,20 @@ const logged = ref(false)
 //   apiGetOrder();
 // })
 
-function login() { 
+const login = () => { 
   apiLoginUser({ email: "admin@a", password: "admin" }).then(() => {
     logged.value = true;
   });
 }
 
-function logout() { 
+const logout = () => { 
   apiLogoutUser().then(() => {
     logged.value = false;
   });
 }
 
 
-function getStaff() { 
+const getStaff = () => { 
   apiGetUser();
   apiGetOrder();
 }

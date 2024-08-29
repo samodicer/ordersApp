@@ -16,10 +16,12 @@ service.interceptors.request.use(
     config.timeout = 120_000
     config.baseURL = API
 
+    // After post/put/delete request is send, we check if CSRF token is in Cookies
     if (
       (config.method == 'post' || config.method == 'put' || config.method == 'delete') &&
       !Cookies.get('XSRF-TOKEN')
     ) {
+      // If there is no token we fetch one
       await setCSRFToken()
     }
 
@@ -32,8 +34,7 @@ service.interceptors.request.use(
 )
 
 const setCSRFToken = () => {
-  console.log('setting token')
-  return service.get('/sanctum/csrf-cookie') // resolves to '/api/csrf-cookie'.
+  return service.get('/sanctum/csrf-cookie')
 }
 
 // Response pre-processing
