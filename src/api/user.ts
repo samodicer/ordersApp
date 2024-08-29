@@ -23,10 +23,3 @@ export const apiGetUser = (): ResponseWrapper<User> => {
     method: 'get'
   })
 }
-
-export const apiGetOrder = () => {
-  return request({
-    url: 'api/orders',
-    method: 'get'
-  })
-}

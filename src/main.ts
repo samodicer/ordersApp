@@ -23,7 +23,6 @@ router.beforeEach(async (to, _from, next) => {
     // If there is no user in store and token is set in Cookies
     // Get and store user
     if (!userStore.user && Cookies.get('XSRF-TOKEN')) {
-      console.log('this')
       await apiGetUser()
         .then((response) => {
           userStore.user = response.data.data

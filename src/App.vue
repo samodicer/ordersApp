@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import Button from 'primevue/button';
 import { ref } from 'vue';
-import { apiGetOrder, apiGetUser, apiLoginUser, apiLogoutUser } from './api/user';
+import { apiGetUser, apiLoginUser, apiLogoutUser } from './api/user';
 
 const logged = ref(false)
 

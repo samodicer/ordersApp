@@ -16,7 +16,7 @@
             placeholder="Password" 
             :feedback="false"
           />
-          <Button @click="login">Login</Button>
+          <Button @click="loginUser">Login</Button>
         </div>
       </template>
     </Card>
@@ -39,7 +39,7 @@ const email = ref("");
 const password = ref("");
 
 
-const login = () => { 
+const loginUser = () => { 
   apiLoginUser({ email: email.value, password: password.value }).then(() => {
     apiGetUser().then((response) => {
       userStore.user = response.data.data;
