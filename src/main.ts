@@ -1,4 +1,5 @@
 import './style.css'
+import 'primeicons/primeicons.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -22,9 +23,14 @@ router.beforeEach(async (to, _from, next) => {
     // If there is no user in store and token is set in Cookies
     // Get and store user
     if (!userStore.user && Cookies.get('XSRF-TOKEN')) {
-      await apiGetUser().then((response) => {
-        userStore.user = response.data.data
-      })
+      console.log('this')
+      await apiGetUser()
+        .then((response) => {
+          userStore.user = response.data.data
+        })
+        .catch(() => {
+          next({ name: 'Login' })
+        })
     }
     // This route requires auth, check if logged in
     // If not, redirect to login page

@@ -1,19 +1,33 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import TheLayout from '@/components/TheLayout.vue'
 
 const routes = [
   {
     path: '/',
-    component: TheLayout,
+    component: () => import('@/components/TheLayout.vue'),
     name: 'Layout',
-    meta: {
-      requiresAuth: true
-    }
+    redirect: '/orders',
+    children: [
+      {
+        path: '/orders',
+        component: () => import('@/views/OrdersView.vue'),
+        name: 'Orders',
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
+        path: '/profile',
+        component: () => import('@/views/ProfileView.vue'),
+        name: 'Profile',
+        meta: {
+          requiresAuth: true
+        }
+      }
+    ]
   },
   {
     path: '/login',
-    component: LoginView,
+    component: () => import('@/views/LoginView.vue'),
     name: 'Login'
   }
 ]
