@@ -24,5 +24,5 @@ export interface CreateOrder {
   order_users: User[] | null
   customer_name: string
   customer_address: string
-  category_id: string | null
+  category_id: number | null
 }

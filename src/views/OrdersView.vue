@@ -1,16 +1,15 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-2">
     <span class="text-3xl text-center">Orders</span>
     <div class="flex justify-end">
       <Button 
         icon="pi pi-plus"
         label="Create"
         rounded
-        outlined
         @click="createOrder" 
       />
     </div>
-    <DataTable class="overflow-x-auto" :value="orders">
+    <DataTable :value="orders">
       <Column field="id" header="#"></Column>
       <Column field="order_number" header="Order number"/>
       <Column field="customer_name" header="Customer name"/>
@@ -36,14 +35,21 @@
           </span>
         </template>
       </Column>
-      <Column header="Status">
+      <Column field="category" header="Category">
         <template #body="slotProps">
-          <Tag :value="slotProps.data.current_status.name"/>
+          <span v-if="slotProps.data.category">
+            {{ slotProps.data.category.name }}
+          </span>
         </template>
       </Column>
-      <Column header="Actions">
+      <Column header="Status">
+        <template #body="slotProps">
+          <Tag :value="slotProps.data.current_status.name" severity="info"/>
+        </template>
+      </Column>
+      <Column>
         <template #body>
-          <div class="flex items-center gap-1">
+          <div class="flex gap-1">
             <Button 
               icon="pi pi-pencil"
               rounded
@@ -84,17 +90,17 @@ const orders = ref<Order[]>([]);
 // ];
 
 const createOrder = () => {
-  /*apiCreateOrder(
+  apiCreateOrder(
     {
-      due_date: '2025-01-15',
+      due_date: '2024-10-28',
       order_users: null,
-      customer_name: 'J Kovac',
-      customer_address: 'Nitra, Hlavna 5445',
-      category_id: null
+      customer_name: 'Skuska Sksksk',
+      customer_address: 'Adresa6262',
+      category_id: 1,
     }
   ).then((response) => { 
     console.log(response.data.data)
-  })*/
+  })
 }
 
 const created = () => { 

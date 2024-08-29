@@ -1,6 +1,6 @@
 <template>
   <div v-if="userStore.user" class="flex items-center justify-between p-2">
-    <router-link class="flex items-center gap-2" to="/profile">
+    <div class="flex items-center gap-2">
       <Avatar 
         class="mr-2" 
         style="background-color: #ece9fc; 
@@ -10,7 +10,7 @@
         <i v-if="!userStore.user.avatar" class="pi pi-question"></i>
       </Avatar>
       <span>{{ userStore.user.fullName }}</span>
-    </router-link>
+    </div>
     <Button
       icon="pi pi-sign-out"
       rounded
@@ -26,7 +26,6 @@ import Avatar from "primevue/avatar";
 import router from "@/router";
 import { apiLogoutUser } from "@/api/user";
 import { useUserStore } from "@/stores/user";
-
 
 const userStore = useUserStore();
 
