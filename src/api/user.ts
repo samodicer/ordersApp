@@ -1,4 +1,6 @@
 import request from './api'
+import type { ResponseWrapper } from '@/types/api'
+import type { User } from '@/types/user'
 
 export const apiLoginUser = (data: { email: string; password: string }) => {
   return request({
@@ -15,7 +17,7 @@ export const apiLogoutUser = () => {
   })
 }
 
-export const apiGetUser = () => {
+export const apiGetUser = (): ResponseWrapper<User> => {
   return request({
     url: 'api/user',
     method: 'get'
