@@ -1,4 +1,5 @@
 import type { Category } from './category'
+import type { OrderStatus } from './status'
 import type { User } from './user'
 
 export interface Order {
@@ -13,13 +14,6 @@ export interface Order {
   order_users: User[]
   category: Category | null
   current_status: OrderStatus
-}
-
-export interface OrderStatus {
-  name: string
-  value: string
-  color: string
-  slug: string
 }
 
 export interface CreateOrderRequestData {

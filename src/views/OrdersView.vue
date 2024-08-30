@@ -54,11 +54,12 @@
           </AvatarGroup>
         </template>
       </Column>
-      <Column header="Status">
+      <Column header="Status" class="cursor-pointer">
         <template #body="slotProps">
           <Tag 
             :style="{background: slotProps.data.current_status.color, color: 'white'}"
             :value="slotProps.data.current_status.name" 
+            @click="openStatusHistoryModal(slotProps.data)"
           />
         </template>
       </Column>
@@ -94,19 +95,20 @@
 import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import AvatarGroup from 'primevue/avatargroup';
+import Avatar from 'primevue/avatar';
 import Tag from 'primevue/tag';
 import OrderModal from '@/components/modals/OrderModal.vue';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 import router from '@/router';
-import { apiDeleteOrder, apiGetOrder, apiGetStatusHistory } from '@/api/order';
+import { apiDeleteOrder, apiGetOrder } from '@/api/order';
 import type { Order } from '@/types/order';
 import { ref } from 'vue';
 import { useDateFormat } from '@vueuse/core';
 import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
-import AvatarGroup from 'primevue/avatargroup';
-import Avatar from 'primevue/avatar';
 import { getInitials } from '@/utils/user';
+import StatusHistoryModal from '@/components/modals/StatusHistoryModal.vue';
 
 const modalStore = useModalStore();
 
@@ -155,6 +157,17 @@ const openConfirmationModal = (item: Order) => {
     }
   })
 }
+
+const openStatusHistoryModal = (item: Order) => {
+  modalStore.open({
+    component: StatusHistoryModal,
+    props: {
+      title: `Status history`,
+      order: item,
+    }
+  })
+}
+
 
 const deleteOrder = (id: number) => { 
   apiDeleteOrder(id).then(() => { 
