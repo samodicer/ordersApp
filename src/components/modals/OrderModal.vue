@@ -36,7 +36,7 @@
         placeholder="Due date"
       />
     </div>
-    <div v-if="props.variant === OrderModalVariant.UPDATE" class="flex flex-col mb-2">
+    <div v-if="props.variant === ModalVariant.UPDATE" class="flex flex-col mb-2">
       <label for="paymentDate" class="font-semibold">Payment date</label>
       <InputText 
         v-model="paymentDate" 
@@ -46,7 +46,7 @@
         placeholder="Payment date"
       />
     </div>
-    <div v-if="props.variant === OrderModalVariant.UPDATE" class="flex flex-col mb-2">
+    <div v-if="props.variant === ModalVariant.UPDATE" class="flex flex-col mb-2">
       <label for="createdAt" class="font-semibold">Created at</label>
       <InputText 
         v-model="createdAt" 
@@ -76,7 +76,7 @@
         placeholder="Select users"
       />
     </div>
-    <div v-if="props.variant === OrderModalVariant.UPDATE" class="flex flex-col mb-2">
+    <div v-if="props.variant === ModalVariant.UPDATE" class="flex flex-col mb-2">
       <label for="category" class="font-semibold">Status</label>
       <Select 
         v-model="activeStatus" 
@@ -94,7 +94,7 @@
       />
       <Button 
         type="button" 
-        :label="props.variant === OrderModalVariant.CREATE ? 'Create' : 'Update'" 
+        :label="props.variant === ModalVariant.CREATE ? 'Create' : 'Update'" 
         @click="confirmModal"
       />
     </div>
@@ -114,10 +114,10 @@ import { ref } from 'vue';
 import { apiGetUsers } from '@/api/user';
 import type { User } from '@/types/user';
 import type { Order, OrderStatus } from '@/types/order';
-import { OrderModalVariant } from '@/types/modal';
+import { ModalVariant } from '@/types/modal';
 
 const props = defineProps<{
-  variant: OrderModalVariant;
+  variant: ModalVariant;
   title: string;
   successCallback: Function;
   order?: Order;
@@ -178,7 +178,7 @@ const updateOrder = () => {
 }
 
 const confirmModal = () => {
-  if (props.variant === OrderModalVariant.CREATE) { 
+  if (props.variant === ModalVariant.CREATE) { 
     createOrder();
     return;
   }
@@ -204,7 +204,7 @@ const getOrderStatuses = () => {
 }
 
 const onCreated = () => {
-  if (props.variant === OrderModalVariant.UPDATE) { 
+  if (props.variant === ModalVariant.UPDATE) { 
     getOrderStatuses();
   }
   getCategories();

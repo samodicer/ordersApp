@@ -9,7 +9,7 @@
         @click="createCategory" 
       />
     </div>
-    <DataTable :value="categories">
+    <DataTable :value="categories" size="small">
       <Column field="id" header="#"></Column>
       <Column field="name" header="Name"></Column>
       <Column>

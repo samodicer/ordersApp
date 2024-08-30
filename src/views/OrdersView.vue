@@ -9,7 +9,7 @@
         @click="openCreateOrderModal" 
       />
     </div>
-    <DataTable :value="orders">
+    <DataTable :value="orders" size="small">
       <Column field="id" header="#"/>
       <Column field="order_number" header="Order number"/>
       <Column field="customer_name" header="Customer name"/>
@@ -52,7 +52,13 @@
       </Column>
       <Column>
         <template #body="slotProps">
-          <div class="flex gap-1">
+          <div class="flex justify-end gap-1">
+            <Button 
+              icon="pi pi-list"
+              rounded
+              outlined
+              @click="redirectToOrderItems(slotProps.data.id)" 
+            />
             <Button 
               icon="pi pi-pencil"
               rounded
@@ -78,23 +84,28 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import OrderModal from '@/components/modals/OrderModal.vue';
+import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
+import router from '@/router';
 import { apiDeleteOrder, apiGetOrder } from '@/api/order';
 import type { Order } from '@/types/order';
 import { ref } from 'vue';
 import { useDateFormat } from '@vueuse/core';
 import { useModalStore } from '@/stores/modal';
-import { OrderModalVariant } from '@/types/modal';
-import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
+import { ModalVariant } from '@/types/modal';
 
 const modalStore = useModalStore();
 
 const orders = ref<Order[]>([]);
 
+const redirectToOrderItems = (id: number) => {
+  router.push({ name: 'OrderItems', params: { id } })
+}
+
 const openCreateOrderModal = () => {
   modalStore.open({
     component: OrderModal,
     props: {
-      variant: OrderModalVariant.CREATE,
+      variant: ModalVariant.CREATE,
       title: 'Create order',
       successCallback: () => { 
         getOrders();
@@ -107,7 +118,7 @@ const openUpdateOrderModal = (item: Order) => {
   modalStore.open({
     component: OrderModal,
     props: {
-      variant: OrderModalVariant.UPDATE,
+      variant: ModalVariant.UPDATE,
       title: 'Update order',
       order: item,
       successCallback: () => { 
@@ -117,7 +128,7 @@ const openUpdateOrderModal = (item: Order) => {
   })
 }
 
-const  openConfirmationModal = (item: Order) => {
+const openConfirmationModal = (item: Order) => {
   modalStore.open({
     component: ConfirmationModal,
     props: {

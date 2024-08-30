@@ -7,7 +7,7 @@
         color: #2a1261" 
         shape="circle" 
       >
-        <i v-if="!userStore.user.avatar" class="pi pi-question"></i>
+        <i v-if="!userStore.user.avatar" class="pi pi-question"/>
       </Avatar>
       <span>{{ userStore.user.fullName }}</span>
     </div>
