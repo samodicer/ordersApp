@@ -4,6 +4,4 @@ export interface Category {
   slug: string
 }
 
-export interface CreateCategory {
-  name: string
-}
+export type CategoryRequestData = Omit<Category, 'id' | 'slug'>
