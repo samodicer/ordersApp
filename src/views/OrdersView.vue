@@ -76,6 +76,10 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
 import { useDateFormat } from '@vueuse/core';
+import { useModalStore } from '@/stores/modal';
+import OrderModal from '@/components/modals/OrderModal.vue';
+
+const modalStore = useModalStore();
 
 const orders = ref<Order[]>([]);
 
@@ -90,7 +94,7 @@ const orders = ref<Order[]>([]);
 // ];
 
 const createOrder = () => {
-  apiCreateOrder(
+  /*apiCreateOrder(
     {
       due_date: '2024-10-28',
       order_users: null,
@@ -100,6 +104,14 @@ const createOrder = () => {
     }
   ).then((response) => { 
     console.log(response.data.data)
+  })*/
+
+  modalStore.open({
+    component: OrderModal,
+    props: {
+      title: 'This is the title',
+      body: 'Some text in the Modal Body'
+    }
   })
 }
 
