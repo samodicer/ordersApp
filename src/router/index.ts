@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    component: () => import('@/components/TheLayout.vue'),
+    component: () => import('@/components/layouts/TheLayout.vue'),
     name: 'Layout',
     redirect: '/orders',
     children: [

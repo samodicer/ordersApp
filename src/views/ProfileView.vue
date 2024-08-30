@@ -8,7 +8,7 @@
         shape="circle"
         size="xlarge"
       >
-        <i v-if="!userStore.user.avatar" class="pi pi-question"></i>
+        <i v-if="!userStore.user.avatar" class="pi pi-question" style="font-size: 2rem" />
       </Avatar>
       <span class="text-3xl">{{ userStore.user.fullName }}</span>
       <Button 
