@@ -1,11 +1,6 @@
-import { markRaw, ref, type Component } from 'vue'
+import { markRaw, ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { User } from '@/types/user'
-
-interface ActiveModal {
-  component: Component | null
-  props: Record<string, any>
-}
+import type { ActiveModal } from '@/types/modal'
 
 export const useModalStore = defineStore('modal', () => {
   const activeModal = ref<ActiveModal>({

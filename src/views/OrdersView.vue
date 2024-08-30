@@ -6,11 +6,11 @@
         icon="pi pi-plus"
         label="Create"
         rounded
-        @click="createOrder" 
+        @click="openCreateOrderModal" 
       />
     </div>
     <DataTable :value="orders">
-      <Column field="id" header="#"></Column>
+      <Column field="id" header="#"/>
       <Column field="order_number" header="Order number"/>
       <Column field="customer_name" header="Customer name"/>
       <Column field="customer_address" header="Customer address"/>
@@ -44,21 +44,26 @@
       </Column>
       <Column header="Status">
         <template #body="slotProps">
-          <Tag :value="slotProps.data.current_status.name" severity="info"/>
+          <Tag 
+            :style="{background: slotProps.data.current_status.color, color: 'white'}"
+            :value="slotProps.data.current_status.name" 
+          />
         </template>
       </Column>
       <Column>
-        <template #body>
+        <template #body="slotProps">
           <div class="flex gap-1">
             <Button 
               icon="pi pi-pencil"
               rounded
               outlined
+              @click="openUpdateOrderModal(slotProps.data)" 
             />
             <Button 
               icon="pi pi-trash"
               rounded
               outlined
+              @click="openConfirmationModal(slotProps.data)" 
             />
           </div>
         </template>
@@ -69,63 +74,77 @@
 
 <script setup lang="ts">
 import Button from 'primevue/button';
-import { apiCreateOrder, apiGetOrder } from '@/api/order';
-import type { Order } from '@/types/order';
-import { ref } from 'vue';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import Tag from 'primevue/tag';
+import OrderModal from '@/components/modals/OrderModal.vue';
+import { apiDeleteOrder, apiGetOrder } from '@/api/order';
+import type { Order } from '@/types/order';
+import { ref } from 'vue';
 import { useDateFormat } from '@vueuse/core';
 import { useModalStore } from '@/stores/modal';
-import OrderModal from '@/components/modals/OrderModal.vue';
+import { OrderModalVariant } from '@/types/modal';
+import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 
 const modalStore = useModalStore();
 
 const orders = ref<Order[]>([]);
 
-// const orderColumns = [
-//   { field: 'id', header: '#' },
-//   { field: 'order_number', header: 'Order number' },
-//   { field: 'due_date', header: 'Due date' },
-//   { field: 'payment_date', header: 'Payment date' },
-//   { field: 'created_at', header: 'Created at' },
-//   { field: 'customer_name', header: 'Customer name' },
-//   { field: 'customer_address', header: 'Customer addres' },
-// ];
-
-const createOrder = () => {
-  /*apiCreateOrder(
-    {
-      due_date: '2024-10-28',
-      order_users: null,
-      customer_name: 'Skuska Sksksk',
-      customer_address: 'Adresa6262',
-      category_id: 1,
-    }
-  ).then((response) => { 
-    console.log(response.data.data)
-  })*/
-
+const openCreateOrderModal = () => {
   modalStore.open({
     component: OrderModal,
     props: {
-      title: 'This is the title',
-      body: 'Some text in the Modal Body'
+      variant: OrderModalVariant.CREATE,
+      title: 'Create order',
+      successCallback: () => { 
+        getOrders();
+      }
     }
   })
 }
 
-const created = () => { 
+const openUpdateOrderModal = (item: Order) => {
+  modalStore.open({
+    component: OrderModal,
+    props: {
+      variant: OrderModalVariant.UPDATE,
+      title: 'Update order',
+      order: item,
+      successCallback: () => { 
+        getOrders();
+      }
+    }
+  })
+}
+
+const  openConfirmationModal = (item: Order) => {
+  modalStore.open({
+    component: ConfirmationModal,
+    props: {
+      title: `Delete order #${item.order_number}`,
+      body: 'Are you sure you want to delete this order?',
+      successCallback: async () => { 
+        deleteOrder(item.id);
+      }
+    }
+  })
+}
+
+const deleteOrder = (id: number) => { 
+  apiDeleteOrder(id).then(() => { 
+    getOrders();
+  })
+}
+
+const getOrders = () => { 
   apiGetOrder().then((response) => { 
-    console.log(response.data.data)
     orders.value = response.data.data;
   })
 }
 
-created();
+const onCreated = () => { 
+  getOrders();
+}
+
+onCreated();
 </script>
-
-<style scoped>
-
-
-</style>

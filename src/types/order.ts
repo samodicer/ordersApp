@@ -1,3 +1,4 @@
+import type { Category } from './category'
 import type { User } from './user'
 
 export interface Order {
@@ -10,19 +11,27 @@ export interface Order {
   customer_name: string
   customer_address: string
   order_users: User[]
-  category: null
-  current_status: {
-    name: string
-    value: string
-    color: string
-    slug: string
-  }
+  category: Category | null
+  current_status: OrderStatus
+}
+
+export interface OrderStatus {
+  name: string
+  value: string
+  color: string
+  slug: string
 }
 
 export interface CreateOrder {
   due_date: string
-  order_users: User[] | null
+  order_users: number[] | null
   customer_name: string
   customer_address: string
   category_id: number | null
+}
+
+export interface UpdateOrder extends CreateOrder {
+  payment_date: string | null
+  created_at: string
+  status: string | null
 }

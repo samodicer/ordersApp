@@ -23,3 +23,10 @@ export const apiGetUser = (): ResponseWrapper<User> => {
     method: 'get'
   })
 }
+
+export const apiGetUsers = (): ResponseWrapper<User[]> => {
+  return request({
+    url: 'api/users',
+    method: 'get'
+  })
+}

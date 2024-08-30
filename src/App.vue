@@ -1,5 +1,13 @@
 <template>
-  <div class="h-lvh p-4 bg-slate-100">
-    <router-view />
-  </div>
+  <router-view />
 </template>
+
+<style>
+html, body {
+    height:100%;
+} 
+body {
+  @apply bg-slate-100;
+  padding: 1rem;
+}
+</style>
