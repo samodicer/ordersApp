@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full h-full flex">
+  <div class="flex">
     <!-- SIDEMENU-->
-    <SideMenu />
+    <SideMenu class="min-h-lvh z-50" />
     <!-- MAIN CONTENT-->
-    <Card class="w-full">
+    <Card class="w-full min-h-lvh">
       <template #content>
         <router-view />
       </template>

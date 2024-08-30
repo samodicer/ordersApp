@@ -44,18 +44,22 @@ const categories = ref<Category[]>([]);
 
 
 const createCategory = () => { 
-  apiCreateCategory({name: 'Test category1'}).then((response) => { 
+  apiCreateCategory({name: 'Cat3'}).then((response) => { 
     console.log(response.data.data)
   })
 }
-const created = () => { 
+
+const getCategories = () => { 
   apiGetCategories().then((response) => { 
-    console.log(response.data.data)
     categories.value = response.data.data;
   })
 }
 
-created();
+const onCreated = () => { 
+  getCategories();
+}
+
+onCreated();
 </script>
 
 <style scoped>

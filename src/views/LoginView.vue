@@ -28,32 +28,25 @@ import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
-import { ref } from 'vue';
-import { apiGetUser, apiLoginUser, apiLogoutUser } from '@/api/user';
-import { useUserStore } from '@/stores/user';
 import router from '@/router';
+import { ref } from 'vue';
+import { apiGetUser, apiLoginUser } from '@/api/user';
+import { useUserStore } from '@/stores/user';
 
 const userStore = useUserStore();
 
-const email = ref("");
-const password = ref("");
+const email = ref('');
+const password = ref('');
 
 
 const loginUser = () => { 
   apiLoginUser({ email: email.value, password: password.value }).then(() => {
     apiGetUser().then((response) => {
       userStore.user = response.data.data;
-      router.push({path: '/'})
+      router.push({ path: '/' });
      })
   }).catch((err) => {
     console.log(err.response.data.message);
   });
 }
-
-const logout = () => { 
-  apiLogoutUser().then(() => {
-    //logged.value = false;
-  });
-}
-
 </script>
