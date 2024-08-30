@@ -24,6 +24,15 @@ const routes = [
         }
       },
       {
+        path: '/order/:id',
+        component: () => import('@/views/OrderItemsView.vue'),
+        name: 'OrderItems',
+        props: true,
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: '/categories',
         component: () => import('@/views/CategoriesView.vue'),
         name: 'Categories',

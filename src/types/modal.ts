@@ -1,6 +1,6 @@
 import type { Component } from 'vue'
 
-export enum OrderModalVariant {
+export enum ModalVariant {
   CREATE,
   UPDATE
 }

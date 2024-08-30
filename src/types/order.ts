@@ -35,3 +35,15 @@ export interface UpdateOrder extends CreateOrder {
   created_at: string
   status: string | null
 }
+
+export interface OrderItem {
+  id: number
+  name: string
+  count: number
+  cost: string
+  cost_with_vat: string
+  vat: string
+  order_id: number
+}
+
+export type CreateOrderItem = Omit<OrderItem, 'id' | 'cost_with_vat' | 'order_id'>
