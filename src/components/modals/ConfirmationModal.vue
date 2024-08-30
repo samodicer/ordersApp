@@ -16,7 +16,7 @@
       />
       <Button 
         type="button" 
-        label="Cofirm"
+        label="Confirm"
         severity="danger" 
         @click="confirmModal"
       />

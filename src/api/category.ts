@@ -1,4 +1,4 @@
-import type { Category, CreateCategory } from '@/types/category'
+import type { Category, CategoryRequestData } from '@/types/category'
 import request from './api'
 import type { ResponseWrapper } from '@/types/api'
 
@@ -9,10 +9,28 @@ export const apiGetCategories = (): ResponseWrapper<Category[]> => {
   })
 }
 
-export const apiCreateCategory = (data: CreateCategory): ResponseWrapper<Category> => {
+export const apiCreateCategory = (data: CategoryRequestData): ResponseWrapper<Category> => {
   return request({
     url: 'api/order-categories',
     method: 'post',
     data
+  })
+}
+
+export const apiUpdateCategory = (
+  id: number,
+  data: CategoryRequestData
+): ResponseWrapper<Category> => {
+  return request({
+    url: `api/order-categories/${id}`,
+    method: 'put',
+    data
+  })
+}
+
+export const apiDeleteCategory = (id: number) => {
+  return request({
+    url: `api/order-categories/${id}`,
+    method: 'delete'
   })
 }

@@ -1,12 +1,12 @@
 import request from './api'
 import type { ResponseWrapper } from '@/types/api'
 import type {
-  CreateOrder,
-  CreateOrderItem,
+  CreateOrderRequestData,
+  OrderItemRequestData,
   Order,
   OrderItem,
   OrderStatus,
-  UpdateOrder
+  UpdateOrderRequestData
 } from '@/types/order'
 
 export const apiGetOrder = (): ResponseWrapper<Order[]> => {
@@ -16,7 +16,7 @@ export const apiGetOrder = (): ResponseWrapper<Order[]> => {
   })
 }
 
-export const apiCreateOrder = (data: CreateOrder): ResponseWrapper<Order> => {
+export const apiCreateOrder = (data: CreateOrderRequestData): ResponseWrapper<Order> => {
   return request({
     url: 'api/orders',
     method: 'post',
@@ -24,7 +24,10 @@ export const apiCreateOrder = (data: CreateOrder): ResponseWrapper<Order> => {
   })
 }
 
-export const apiUpdateOrder = (id: number, data: UpdateOrder): ResponseWrapper<Order> => {
+export const apiUpdateOrder = (
+  id: number,
+  data: UpdateOrderRequestData
+): ResponseWrapper<Order> => {
   return request({
     url: `api/orders/${id}`,
     method: 'put',
@@ -50,7 +53,7 @@ export const apiGetOrderItems = (id: number): ResponseWrapper<OrderItem[]> => {
 
 export const apiCreateOrderItem = (
   id: number,
-  data: CreateOrderItem
+  data: OrderItemRequestData
 ): ResponseWrapper<OrderItem> => {
   return request({
     url: `api/orders/${id}/order-items`,
@@ -62,7 +65,7 @@ export const apiCreateOrderItem = (
 export const apiUpdateOrderItem = (
   id: number,
   itemId: number,
-  data: CreateOrderItem
+  data: OrderItemRequestData
 ): ResponseWrapper<OrderItem> => {
   return request({
     url: `api/orders/${id}/order-items/${itemId}`,
@@ -89,6 +92,13 @@ export const apiGetVatRates = (): ResponseWrapper<number[]> => {
 export const apiGetOrderStatuses = (): ResponseWrapper<OrderStatus[]> => {
   return request({
     url: 'api/order-statuses',
+    method: 'get'
+  })
+}
+
+export const apiGetStatusHistory = (id: number): ResponseWrapper<OrderStatus[]> => {
+  return request({
+    url: `api/orders/${id}/status-history`,
     method: 'get'
   })
 }

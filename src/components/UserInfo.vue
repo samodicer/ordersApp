@@ -3,12 +3,10 @@
     <div class="flex items-center gap-2">
       <Avatar 
         class="mr-2" 
-        style="background-color: #ece9fc; 
-        color: #2a1261" 
+        style="background-color: #ece9fc; color: #2a1261" 
         shape="circle" 
-      >
-        <i v-if="!userStore.user.avatar" class="pi pi-question"/>
-      </Avatar>
+        :label="getInitials(userStore.user.fullName)"
+      />
       <span>{{ userStore.user.fullName }}</span>
     </div>
     <Button
@@ -26,6 +24,7 @@ import Avatar from "primevue/avatar";
 import router from "@/router";
 import { apiLogoutUser } from "@/api/user";
 import { useUserStore } from "@/stores/user";
+import { getInitials } from "@/utils/user";
 
 const userStore = useUserStore();
 

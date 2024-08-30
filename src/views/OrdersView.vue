@@ -42,6 +42,18 @@
           </span>
         </template>
       </Column>
+      <Column header="Users">
+        <template #body="slotProps">
+          <AvatarGroup>
+            <Avatar 
+              v-for="user in slotProps.data.order_users" 
+              :key="user.id" shape="circle" 
+              :label="getInitials(user.fullName)"
+              style="background-color: #ece9fc; color: #2a1261" 
+            />
+          </AvatarGroup>
+        </template>
+      </Column>
       <Column header="Status">
         <template #body="slotProps">
           <Tag 
@@ -86,12 +98,15 @@ import Tag from 'primevue/tag';
 import OrderModal from '@/components/modals/OrderModal.vue';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 import router from '@/router';
-import { apiDeleteOrder, apiGetOrder } from '@/api/order';
+import { apiDeleteOrder, apiGetOrder, apiGetStatusHistory } from '@/api/order';
 import type { Order } from '@/types/order';
 import { ref } from 'vue';
 import { useDateFormat } from '@vueuse/core';
 import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
+import AvatarGroup from 'primevue/avatargroup';
+import Avatar from 'primevue/avatar';
+import { getInitials } from '@/utils/user';
 
 const modalStore = useModalStore();
 

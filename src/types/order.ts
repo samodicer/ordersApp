@@ -22,7 +22,7 @@ export interface OrderStatus {
   slug: string
 }
 
-export interface CreateOrder {
+export interface CreateOrderRequestData {
   due_date: string
   order_users: number[] | null
   customer_name: string
@@ -30,7 +30,7 @@ export interface CreateOrder {
   category_id: number | null
 }
 
-export interface UpdateOrder extends CreateOrder {
+export interface UpdateOrderRequestData extends CreateOrderRequestData {
   payment_date: string | null
   created_at: string
   status: string | null
@@ -46,4 +46,4 @@ export interface OrderItem {
   order_id: number
 }
 
-export type CreateOrderItem = Omit<OrderItem, 'id' | 'cost_with_vat' | 'order_id'>
+export type OrderItemRequestData = Omit<OrderItem, 'id' | 'cost_with_vat' | 'order_id'>
