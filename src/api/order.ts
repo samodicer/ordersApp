@@ -5,7 +5,6 @@ import type {
   OrderItemRequestData,
   Order,
   OrderItem,
-  OrderStatus,
   UpdateOrderRequestData
 } from '@/types/order'
 
@@ -84,21 +83,6 @@ export const apiDeleteOrderItem = (id: number, itemId: number) => {
 export const apiGetVatRates = (): ResponseWrapper<number[]> => {
   return request({
     url: `api/vat-rates`,
-    method: 'get'
-  })
-}
-
-/* ORDER STATUSES */
-export const apiGetOrderStatuses = (): ResponseWrapper<OrderStatus[]> => {
-  return request({
-    url: 'api/order-statuses',
-    method: 'get'
-  })
-}
-
-export const apiGetStatusHistory = (id: number): ResponseWrapper<OrderStatus[]> => {
-  return request({
-    url: `api/orders/${id}/status-history`,
     method: 'get'
   })
 }

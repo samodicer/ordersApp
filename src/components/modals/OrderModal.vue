@@ -108,13 +108,14 @@ import InputText from 'primevue/inputtext';
 import Select from 'primevue/select';
 import MultiSelect from 'primevue/multiselect';
 import { apiGetCategories } from '@/api/category';
-import { apiCreateOrder, apiGetOrderStatuses, apiUpdateOrder } from '@/api/order';
+import { apiCreateOrder, apiUpdateOrder } from '@/api/order';
 import type { Category } from '@/types/category';
 import { ref } from 'vue';
 import { apiGetUsers } from '@/api/user';
 import type { User } from '@/types/user';
 import type { Order, OrderStatus } from '@/types/order';
 import { ModalVariant } from '@/types/modal';
+import { apiGetOrderStatuses } from '@/api/status';
 
 const props = defineProps<{
   variant: ModalVariant;
