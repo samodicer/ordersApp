@@ -9,7 +9,7 @@
         @click="openCreateOrderModal" 
       />
     </div>
-    <DataTable :value="orders" size="small">
+    <DataTable v-if="orders.length" :value="orders" size="small" >
       <Column field="id" header="#"/>
       <Column field="order_number" header="Order number"/>
       <Column field="customer_name" header="Customer name"/>
@@ -89,6 +89,8 @@
         </template>
       </Column>
     </DataTable>
+    <NoData v-else-if="!itemsLoading" />
+    <TheLoader v-else />
   </div>
 </template>
 
@@ -102,6 +104,8 @@ import Tag from 'primevue/tag';
 import OrderModal from '@/components/modals/OrderModal.vue';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 import StatusHistoryModal from '@/components/modals/StatusHistoryModal.vue';
+import NoData from '@/components/NoData.vue';
+import TheLoader from '@/components/TheLoader.vue';
 import router from '@/router';
 import { apiDeleteOrder, apiGetOrder } from '@/api/order';
 import type { Order } from '@/types/order';
@@ -117,6 +121,7 @@ const modalStore = useModalStore();
 const toast = useToast();
 
 const orders = ref<Order[]>([]);
+const itemsLoading = ref(true);
 
 const redirectToOrderItems = (id: number) => {
   router.push({ name: 'OrderItems', params: { id } })
@@ -186,8 +191,11 @@ const deleteOrder = (id: number) => {
 }
 
 const getOrders = () => { 
+  itemsLoading.value = true;
   apiGetOrder().then((response) => { 
     orders.value = response.data.data;
+  }).finally(() => { 
+    itemsLoading.value = false;
   })
 }
 

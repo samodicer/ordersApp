@@ -130,7 +130,7 @@ const updateProfile = () => {
     toast.add({
       severity: 'success',
       summary: 'SUCCESS',
-      detail: 'Your profile has been successfully updated.',
+      detail: 'Profile has been successfully updated.',
       life: 3000
     });
   }).catch((err) => { 

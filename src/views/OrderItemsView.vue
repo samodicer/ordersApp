@@ -15,7 +15,7 @@
         @click="openCreateOrderItemModal" 
       />
     </div>
-    <DataTable :value="orderItems" size="small">
+    <DataTable v-if="orderItems.length" :value="orderItems" size="small">
       <Column field="id" header="#"/>
       <Column field="name" header="Name"/>
       <Column field="count" header="Count"/>
@@ -41,6 +41,8 @@
         </template>
       </Column>
     </DataTable>
+    <NoData v-else-if="!itemsLoading" />
+    <TheLoader v-else />
   </div>
 </template>
 
@@ -50,6 +52,8 @@ import Column from 'primevue/column';
 import DataTable from 'primevue/datatable';
 import OrderItemModal from '@/components/modals/OrderItemModal.vue';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
+import NoData from '@/components/NoData.vue';
+import TheLoader from '@/components/TheLoader.vue';
 import router from '@/router';
 import { apiDeleteOrderItem, apiGetOrderItems } from '@/api/order';
 import { useModalStore } from '@/stores/modal';
@@ -62,6 +66,7 @@ const modalStore = useModalStore();
 const toast = useToast();
 
 const orderItems = ref<OrderItem[]>([]);
+const itemsLoading = ref(true);
 
 const props = defineProps<{ id: string }>();
 
@@ -120,8 +125,11 @@ const deleteOrderItem = (id: number, itemId: number) => {
 }
 
 const getOrderItems = () => { 
+  itemsLoading.value = true;
   apiGetOrderItems(parseInt(props.id)).then((response) => { 
     orderItems.value = response.data.data;
+  }).finally(() => { 
+    itemsLoading.value = false;
   })
 }
 

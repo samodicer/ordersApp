@@ -9,7 +9,7 @@
         @click="openCreateCategoryModal" 
       />
     </div>
-    <DataTable :value="categories" size="small">
+    <DataTable v-if="categories.length" :value="categories" size="small">
       <Column field="id" header="#"></Column>
       <Column field="name" header="Name"></Column>
       <Column>
@@ -31,6 +31,8 @@
         </template>
       </Column>
     </DataTable>
+    <NoData v-else-if="!itemsLoading" />
+    <TheLoader v-else />
   </div>
 </template>
 
@@ -39,19 +41,22 @@ import Button from 'primevue/button';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
 import CategoryModal from '@/components/modals/CategoryModal.vue';
+import NoData from '@/components/NoData.vue';
+import TheLoader from '@/components/TheLoader.vue';
+import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 import { apiDeleteCategory, apiGetCategories } from '@/api/category';
 import type { Category } from '@/types/category';
 import { ref } from 'vue';
 import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
-import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
 import { useToast } from 'primevue/usetoast';
-
-const categories = ref<Category[]>([]);
 
 const modalStore = useModalStore();
 const toast = useToast();
 
+const categories = ref<Category[]>([]);
+const itemsLoading = ref(true);
+  
 const openCreateCategoryModal = () => {
   modalStore.open({
     component: CategoryModal,
@@ -105,8 +110,11 @@ const deleteCategory = (id: number) => {
 }
 
 const getCategories = () => { 
+  itemsLoading.value = true;
   apiGetCategories().then((response) => { 
     categories.value = response.data.data;
+  }).finally(() => { 
+    itemsLoading.value = false;
   })
 }
 
