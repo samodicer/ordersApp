@@ -8,7 +8,9 @@
         :label="!userStore.user.avatar ? getInitials(userStore.user.fullName) : undefined"
         :image="userStore.user.avatar ? `${API}/${userStore.user.avatar.image}` : undefined"
       />
-      <span class="truncate ...">{{ `${getInitials(userStore.user.firstname)}. ${userStore.user.lastname}` }}</span>
+      <span class="truncate ...">
+        {{ `${getInitials(userStore.user.firstname)}. ${userStore.user.lastname}` }}
+      </span>
     </div>
     <Button
       class="min-w-[40px]"
