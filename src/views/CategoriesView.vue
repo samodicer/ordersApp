@@ -83,7 +83,7 @@ const openConfirmationModal = (item: Category) => {
     props: {
       title: `Delete category "${item.name}"`,
       body: 'Are you sure you want to delete this category?',
-      successCallback: async () => { 
+      successCallback: () => { 
         deleteCategory(item.id);
       }
     }

@@ -48,7 +48,8 @@
             <Avatar 
               v-for="user in slotProps.data.order_users" 
               :key="user.id" shape="circle" 
-              :label="getInitials(user.fullName)"
+              :label="!user.avatar ? getInitials(user.fullName) : undefined"
+              :image="user.avatar ? `${API}/${user.avatar.image}` : undefined "
               style="background-color: #ece9fc; color: #2a1261" 
             />
           </AvatarGroup>
@@ -109,6 +110,7 @@ import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import { getInitials } from '@/utils/user';
 import StatusHistoryModal from '@/components/modals/StatusHistoryModal.vue';
+import { API } from '@/api/api';
 
 const modalStore = useModalStore();
 
@@ -151,7 +153,7 @@ const openConfirmationModal = (item: Order) => {
     props: {
       title: `Delete order #${item.order_number}`,
       body: 'Are you sure you want to delete this order?',
-      successCallback: async () => { 
+      successCallback: () => { 
         deleteOrder(item.id);
       }
     }
@@ -162,7 +164,7 @@ const openStatusHistoryModal = (item: Order) => {
   modalStore.open({
     component: StatusHistoryModal,
     props: {
-      title: `Status history`,
+      title: 'Status history',
       order: item,
     }
   })

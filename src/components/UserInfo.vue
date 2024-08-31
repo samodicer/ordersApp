@@ -1,15 +1,17 @@
 <template>
-  <div v-if="userStore.user" class="flex items-center justify-between p-2">
-    <div class="flex items-center gap-2">
+  <div v-if="userStore.user" class="flex items-center justify-between gap-2 p-2">
+    <div class="flex items-center gap-1 min-w-0">
       <Avatar 
-        class="mr-2" 
+        class="min-w-[32px]" 
         style="background-color: #ece9fc; color: #2a1261" 
         shape="circle" 
-        :label="getInitials(userStore.user.fullName)"
+        :label="!userStore.user.avatar ? getInitials(userStore.user.fullName) : undefined"
+        :image="userStore.user.avatar ? `${API}/${userStore.user.avatar.image}` : undefined"
       />
-      <span>{{ userStore.user.fullName }}</span>
+      <span class="truncate ...">{{ `${getInitials(userStore.user.firstname)}. ${userStore.user.lastname}` }}</span>
     </div>
     <Button
+      class="min-w-[40px]"
       icon="pi pi-sign-out"
       rounded
       outlined
@@ -25,6 +27,7 @@ import router from "@/router";
 import { apiLogoutUser } from "@/api/user";
 import { useUserStore } from "@/stores/user";
 import { getInitials } from "@/utils/user";
+import { API } from "@/api/api";
 
 const userStore = useUserStore();
 

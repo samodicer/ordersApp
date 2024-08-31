@@ -8,6 +8,6 @@ html, body {
 } 
 body {
   @apply bg-slate-100;
-  padding: 1rem;
+  margin: 1rem;
 }
 </style>

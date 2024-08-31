@@ -24,9 +24,24 @@ export const apiGetUser = (): ResponseWrapper<User> => {
   })
 }
 
+export const apiGetUserById = (id: number): ResponseWrapper<User> => {
+  return request({
+    url: `api/users/${id}`,
+    method: 'get'
+  })
+}
+
 export const apiGetUsers = (): ResponseWrapper<User[]> => {
   return request({
     url: 'api/users',
     method: 'get'
+  })
+}
+
+export const apiUpdateUserProfile = (data: FormData): ResponseWrapper<User> => {
+  return request({
+    url: 'api/user/update-profile',
+    method: 'post',
+    data
   })
 }

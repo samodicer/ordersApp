@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = 'http://localhost:81'
+export const API = 'http://localhost:81'
 
 // Create axios instance
 const service = axios.create({
