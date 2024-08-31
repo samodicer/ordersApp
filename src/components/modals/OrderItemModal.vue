@@ -70,6 +70,7 @@ import { apiCreateOrderItem, apiGetVatRates, apiUpdateOrderItem } from '@/api/or
 import { ref } from 'vue';
 import type { OrderItem} from '@/types/order';
 import { ModalVariant } from '@/types/modal';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps<{
   variant: ModalVariant;
@@ -82,6 +83,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void;
 }>()
+
+const toast = useToast();
 
 const name = ref(props.orderItem ? props.orderItem.name : '');
 const count = ref(props.orderItem ? props.orderItem.count : 0);
@@ -101,6 +104,19 @@ const createOrderItem = () => {
   apiCreateOrderItem(props.orderId, data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order item has been successfully created.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
@@ -119,6 +135,19 @@ const updateOrderItem = () => {
   apiUpdateOrderItem(props.orderId, props.orderItem.id, data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order item has been successfully updated.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 

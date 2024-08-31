@@ -8,13 +8,10 @@
         <router-view />
       </template>
     </Card>
-    <!-- MODALS-->
-    <TheModal />
   </div>
 </template>
 
 <script setup lang="ts">
 import Card from 'primevue/card';
-import TheModal from './TheModal.vue';
 import SideMenu from '@/components/SideMenu.vue';
 </script>

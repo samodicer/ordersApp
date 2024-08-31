@@ -40,6 +40,7 @@ import { ref } from 'vue';
 import { ModalVariant } from '@/types/modal';
 import { apiCreateCategory, apiUpdateCategory } from '@/api/category';
 import type { Category } from '@/types/category';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps<{
   variant: ModalVariant;
@@ -52,6 +53,8 @@ const emit = defineEmits<{
   (e: 'close'): void;
 }>()
 
+const toast = useToast();
+
 const name = ref(props.category ? props.category.name : '');
 
 const createCategory = () => { 
@@ -62,6 +65,19 @@ const createCategory = () => {
   apiCreateCategory(data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Category has been successfully created.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
@@ -77,6 +93,19 @@ const updateCategory = () => {
   apiUpdateCategory(props.category.id, data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Category has been successfully updated.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 

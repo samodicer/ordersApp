@@ -33,7 +33,7 @@ const userStore = useUserStore();
 
 const logoutUser = () => { 
   apiLogoutUser().then(() => {
-    router.push({path: '/login'})
+    router.push({name: 'Login'})
   });
 }
 </script>

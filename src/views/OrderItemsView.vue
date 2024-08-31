@@ -6,7 +6,7 @@
         icon="pi pi-angle-left"
         rounded
         outlined
-        @click="router.push({ path: '/orders' })"
+        @click="router.push({ name: 'Orders' })"
       />
       <Button 
         icon="pi pi-plus"
@@ -56,8 +56,10 @@ import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import type { OrderItem } from '@/types/order';
 import { ref } from 'vue';
+import { useToast } from 'primevue/usetoast';
 
 const modalStore = useModalStore();
+const toast = useToast();
 
 const orderItems = ref<OrderItem[]>([]);
 
@@ -108,6 +110,12 @@ const openConfirmationModal = (item: OrderItem) => {
 const deleteOrderItem = (id: number, itemId: number) => { 
   apiDeleteOrderItem(id, itemId).then(() => { 
     getOrderItems();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order item has been successfully deleted.',
+      life: 3000
+    });
   })
 }
 

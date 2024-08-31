@@ -101,6 +101,7 @@ import Avatar from 'primevue/avatar';
 import Tag from 'primevue/tag';
 import OrderModal from '@/components/modals/OrderModal.vue';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
+import StatusHistoryModal from '@/components/modals/StatusHistoryModal.vue';
 import router from '@/router';
 import { apiDeleteOrder, apiGetOrder } from '@/api/order';
 import type { Order } from '@/types/order';
@@ -109,10 +110,11 @@ import { useDateFormat } from '@vueuse/core';
 import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import { getInitials } from '@/utils/user';
-import StatusHistoryModal from '@/components/modals/StatusHistoryModal.vue';
 import { API } from '@/api/api';
+import { useToast } from 'primevue/usetoast';
 
 const modalStore = useModalStore();
+const toast = useToast();
 
 const orders = ref<Order[]>([]);
 
@@ -174,6 +176,12 @@ const openStatusHistoryModal = (item: Order) => {
 const deleteOrder = (id: number) => { 
   apiDeleteOrder(id).then(() => { 
     getOrders();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order has been successfully deleted.',
+      life: 3000
+    });
   })
 }
 
