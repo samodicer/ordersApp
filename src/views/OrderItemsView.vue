@@ -70,6 +70,7 @@ const itemsLoading = ref(true);
 
 const props = defineProps<{ id: string }>();
 
+// Open create modal
 const openCreateOrderItemModal = () => {
   modalStore.open({
     component: OrderItemModal,
@@ -84,6 +85,7 @@ const openCreateOrderItemModal = () => {
   })
 }
 
+// Open update modal
 const openUpdateOrderItemModal = (item: OrderItem) => {
   modalStore.open({
     component: OrderItemModal,
@@ -99,6 +101,7 @@ const openUpdateOrderItemModal = (item: OrderItem) => {
   })
 }
 
+// Open confirmation modal
 const openConfirmationModal = (item: OrderItem) => {
   modalStore.open({
     component: ConfirmationModal,
@@ -112,6 +115,7 @@ const openConfirmationModal = (item: OrderItem) => {
   })
 }
 
+// Delete order item API call
 const deleteOrderItem = (id: number, itemId: number) => { 
   apiDeleteOrderItem(id, itemId).then(() => { 
     getOrderItems();
@@ -121,11 +125,20 @@ const deleteOrderItem = (id: number, itemId: number) => {
       detail: 'Order item has been successfully deleted.',
       life: 3000
     });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
+// Get order items API call
 const getOrderItems = () => { 
   itemsLoading.value = true;
+
   apiGetOrderItems(parseInt(props.id)).then((response) => { 
     orderItems.value = response.data.data;
   }).finally(() => { 

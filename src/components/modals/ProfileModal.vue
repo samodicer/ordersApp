@@ -106,13 +106,16 @@ const file = ref<Blob | null>(null);
 
 const src = ref(props.user.avatar ? `${API}/${props.user.avatar.image}` : '');
 
+// On file selected
 function onFileSelect(event: FileUploadSelectEvent) {
   file.value = event.files[0];
   if (file.value) {
+    // Create src url to show preview of avatar
     src.value = URL.createObjectURL(file.value);
   }
 }
 
+// Update profile API call
 const updateProfile = () => { 
   const formData = new FormData();
 

@@ -187,11 +187,19 @@ const deleteOrder = (id: number) => {
       detail: 'Order has been successfully deleted.',
       life: 3000
     });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
 const getOrders = () => { 
   itemsLoading.value = true;
+
   apiGetOrder().then((response) => { 
     orders.value = response.data.data;
   }).finally(() => { 

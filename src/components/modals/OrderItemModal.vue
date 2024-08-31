@@ -151,6 +151,7 @@ const updateOrderItem = () => {
   })
 }
 
+// Action based on modal variant
 const confirmModal = () => {
   if (props.variant === ModalVariant.CREATE) { 
     createOrderItem();
@@ -159,6 +160,7 @@ const confirmModal = () => {
   updateOrderItem();
 }
 
+// Get vat rates API call
 const getVatRates = () => {
   apiGetVatRates().then((response) => { 
     vatRates.value = response.data.data.map(item => item.toFixed(2))
