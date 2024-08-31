@@ -1,8 +1,24 @@
+<template>
+  <router-view />
+  <!-- MODALS -->
+  <TheModal />
+  <!-- TOASTS -->
+  <Toast position="bottom-right"/>
+</template>
+
 <script setup lang="ts">
-import Button from 'primevue/button';
+import Toast from 'primevue/toast';
+import TheModal from '@/components/TheModal.vue';
+
+document.title = 'Orders App'
 </script>
 
-<template>
-  <p class="text-3xl text-red-800">TW</p>
-  <Button label="Submit" />
-</template>
+<style>
+html, body {
+  height:100%;
+} 
+body {
+  @apply bg-slate-100;
+  margin: 1rem;
+}
+</style>
