@@ -50,9 +50,8 @@
           @select="onFileSelect"
         />
       </div>
-      <div class="flex justify-center">
+      <div v-if="src" class="flex justify-center">
         <img 
-          v-if="src" 
           :src="src" 
           alt="Image preview" 
           class="shadow-md rounded-xl max-w-[200px] max-h-[200px]" 

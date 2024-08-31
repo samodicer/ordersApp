@@ -15,6 +15,7 @@
             toggleMask 
             placeholder="Password" 
             :feedback="false"
+            @keyup.enter="loginUser"
           />
           <Button @click="loginUser">Login</Button>
         </div>
