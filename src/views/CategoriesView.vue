@@ -51,12 +51,14 @@ import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import { useToast } from 'primevue/usetoast';
 
+// STORE
 const modalStore = useModalStore();
 const toast = useToast();
 
 const categories = ref<Category[]>([]);
 const itemsLoading = ref(true);
-  
+
+// Open create modal
 const openCreateCategoryModal = () => {
   modalStore.open({
     component: CategoryModal,
@@ -70,6 +72,7 @@ const openCreateCategoryModal = () => {
   })
 }
 
+// Open update modal
 const openUpdateCategoryModal = (item: Category) => {
   modalStore.open({
     component: CategoryModal,
@@ -84,6 +87,7 @@ const openUpdateCategoryModal = (item: Category) => {
   })
 }
 
+// Open confirmation modal
 const openConfirmationModal = (item: Category) => {
   modalStore.open({
     component: ConfirmationModal,
@@ -97,6 +101,7 @@ const openConfirmationModal = (item: Category) => {
   })
 }
 
+// Delete category API call
 const deleteCategory = (id: number) => { 
   apiDeleteCategory(id).then(() => { 
     getCategories();
@@ -106,11 +111,20 @@ const deleteCategory = (id: number) => {
       detail: 'Category has been successfully deleted.',
       life: 3000
     });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
+// Get categories API call
 const getCategories = () => { 
   itemsLoading.value = true;
+
   apiGetCategories().then((response) => { 
     categories.value = response.data.data;
   }).finally(() => { 

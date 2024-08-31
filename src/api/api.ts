@@ -1,3 +1,4 @@
+import router from '@/router'
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
@@ -43,6 +44,10 @@ service.interceptors.response.use(
     return response
   },
   (error) => {
+    // If user is unauthorized go to login
+    if (error.response.status === 401) {
+      router.push({ name: 'Login' })
+    }
     console.error(error)
     return Promise.reject(error)
   }

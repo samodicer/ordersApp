@@ -26,7 +26,6 @@ import Button from "primevue/button";
 import ProfileModal from "@/components/modals/ProfileModal.vue";
 import { useUserStore } from "@/stores/user";
 import { getInitials } from "@/utils/user";
-import { apiGetUserById } from "@/api/user";
 import { API } from "@/api/api";
 import type { User } from "@/types/user";
 import { useModalStore } from "@/stores/modal";
@@ -43,19 +42,4 @@ const openProfileModal = (item: User) => {
     }
   })
 }
-
-const getUserById = () => { 
-  if (!userStore.user) { 
-    return;
-  }
-  apiGetUserById(userStore.user.id).then((response) => { 
-    userStore.user = response.data.data;
-  })
-}
-
-const onCreated = () => { 
-  getUserById();
-}
-
-onCreated();
 </script>

@@ -41,7 +41,7 @@ const toast = useToast();
 const email = ref('');
 const password = ref('');
 
-
+// Login API call
 const loginUser = () => { 
   apiLoginUser({ email: email.value, password: password.value }).then(() => {
     apiGetUser().then((response) => {

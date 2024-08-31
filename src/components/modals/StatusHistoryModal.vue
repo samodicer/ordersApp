@@ -7,7 +7,7 @@
     @update:visible="$event ? undefined : emit('close')"
   >
     <span class="flex justify-center mb-4">
-      Order number #{{ order.order_number }}
+      {{ `Order number #${order.order_number}` }}
     </span>
     <Timeline :value="statusHistory">
       <template #opposite="slotProps">
@@ -58,6 +58,7 @@ const emit = defineEmits<{
 
 const statusHistory = ref<StatusHistory[]>([])
 
+// Get status history API call
 const getStatusHistory = () => {
   apiGetStatusHistory(props.order.id).then((response) => {
     statusHistory.value = response.data.data.reverse();

@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import Toast from 'primevue/toast';
-import TheModal from './components/layouts/TheModal.vue';
+import TheModal from '@/components/TheModal.vue';
 
 document.title = 'Orders App'
 </script>

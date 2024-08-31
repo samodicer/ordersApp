@@ -145,6 +145,7 @@ const categories = ref<Category[]>([]);
 const users = ref<User[]>([]);
 const statuses = ref<OrderStatus[]>([]);
 
+// Create order API call
 const createOrder = () => { 
   const data = {
     customer_name: customerName.value,
@@ -173,6 +174,7 @@ const createOrder = () => {
   })
 }
 
+// Update order API call
 const updateOrder = () => { 
   if (!props.order) { 
     return;
@@ -208,6 +210,7 @@ const updateOrder = () => {
   })
 }
 
+// Action based on modal variant
 const confirmModal = () => {
   if (props.variant === ModalVariant.CREATE) { 
     createOrder();
@@ -216,18 +219,21 @@ const confirmModal = () => {
   updateOrder();
 }
 
+// Get categories API call
 const getCategories = () => { 
   apiGetCategories().then((response) => { 
     categories.value = response.data.data;
   })
 }
 
+// Get users API call
 const getUsers = () => { 
   apiGetUsers().then((response) => { 
     users.value = response.data.data;
   })
 }
 
+// Get statuses API call
 const getOrderStatuses = () => { 
   apiGetOrderStatuses().then((response) => { 
     statuses.value = response.data.data;
@@ -235,6 +241,7 @@ const getOrderStatuses = () => {
 }
 
 const onCreated = () => {
+  // Get data for Select components
   if (props.variant === ModalVariant.UPDATE) { 
     getOrderStatuses();
   }

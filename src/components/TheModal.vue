@@ -1,4 +1,5 @@
 <template>
+  <!-- ACTIVE MODAL FROM STORE -->
   <Component
     v-if="activeModal"
     :is="activeModal.component"
