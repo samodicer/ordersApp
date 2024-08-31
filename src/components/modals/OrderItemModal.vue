@@ -93,6 +93,7 @@ const activeVat = ref(props.orderItem ? props.orderItem.vat : '');
 
 const vatRates = ref<string[]>([]);
 
+// Create order item API call
 const createOrderItem = () => { 
   const data = {
     name: name.value,
@@ -120,6 +121,7 @@ const createOrderItem = () => {
   })
 }
 
+// Update order item API call
 const updateOrderItem = () => { 
   if (!props.orderItem) { 
     return;

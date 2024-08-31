@@ -51,7 +51,6 @@ import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import { useToast } from 'primevue/usetoast';
 
-// STORE
 const modalStore = useModalStore();
 const toast = useToast();
 
