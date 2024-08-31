@@ -1,5 +1,5 @@
-import type { Category, CategoryRequestData } from '@/types/category'
 import request from './api'
+import type { Category, CategoryRequestData } from '@/types/category'
 import type { ResponseWrapper } from '@/types/api'
 
 export const apiGetCategories = (): ResponseWrapper<Category[]> => {

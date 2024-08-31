@@ -33,6 +33,7 @@ import { useModalStore } from "@/stores/modal";
 const userStore = useUserStore();
 const modalStore = useModalStore();
 
+// Open update profile modal
 const openProfileModal = (item: User) => {
   modalStore.open({
     component: ProfileModal,

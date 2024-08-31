@@ -57,6 +57,7 @@ const toast = useToast();
 
 const name = ref(props.category ? props.category.name : '');
 
+// Create category API call
 const createCategory = () => { 
   const data = {
     name: name.value,
@@ -81,6 +82,7 @@ const createCategory = () => {
   })
 }
 
+// Update category API call
 const updateCategory = () => { 
   if (!props.category) { 
     return;
@@ -109,6 +111,7 @@ const updateCategory = () => {
   })
 }
 
+// Action based on modal variant
 const confirmModal = () => {
   if (props.variant === ModalVariant.CREATE) { 
     createCategory();

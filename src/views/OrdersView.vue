@@ -123,10 +123,12 @@ const toast = useToast();
 const orders = ref<Order[]>([]);
 const itemsLoading = ref(true);
 
+// Redirect to order items view
 const redirectToOrderItems = (id: number) => {
   router.push({ name: 'OrderItems', params: { id } })
 }
 
+// Open create modal
 const openCreateOrderModal = () => {
   modalStore.open({
     component: OrderModal,
@@ -140,6 +142,7 @@ const openCreateOrderModal = () => {
   })
 }
 
+// Open update modal
 const openUpdateOrderModal = (item: Order) => {
   modalStore.open({
     component: OrderModal,
@@ -154,6 +157,7 @@ const openUpdateOrderModal = (item: Order) => {
   })
 }
 
+// Open confirmation modal
 const openConfirmationModal = (item: Order) => {
   modalStore.open({
     component: ConfirmationModal,
@@ -167,6 +171,7 @@ const openConfirmationModal = (item: Order) => {
   })
 }
 
+// Open status history modal
 const openStatusHistoryModal = (item: Order) => {
   modalStore.open({
     component: StatusHistoryModal,
@@ -177,7 +182,7 @@ const openStatusHistoryModal = (item: Order) => {
   })
 }
 
-
+// Delete order API call
 const deleteOrder = (id: number) => { 
   apiDeleteOrder(id).then(() => { 
     getOrders();
@@ -197,6 +202,7 @@ const deleteOrder = (id: number) => {
   })
 }
 
+// Get orders API call
 const getOrders = () => { 
   itemsLoading.value = true;
 
