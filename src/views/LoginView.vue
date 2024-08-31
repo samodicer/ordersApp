@@ -33,8 +33,10 @@ import router from '@/router';
 import { ref } from 'vue';
 import { apiGetUser, apiLoginUser } from '@/api/user';
 import { useUserStore } from '@/stores/user';
+import { useToast } from 'primevue/usetoast';
 
 const userStore = useUserStore();
+const toast = useToast();
 
 const email = ref('');
 const password = ref('');
@@ -44,10 +46,15 @@ const loginUser = () => {
   apiLoginUser({ email: email.value, password: password.value }).then(() => {
     apiGetUser().then((response) => {
       userStore.user = response.data.data;
-      router.push({ path: '/' });
+      router.push({ name: 'Orders' });
      })
   }).catch((err) => {
-    console.log(err.response.data.message);
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message, 
+      life: 3000
+    });
   });
 }
 </script>

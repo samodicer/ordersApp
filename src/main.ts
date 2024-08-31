@@ -10,11 +10,13 @@ import Aura from '@primevue/themes/aura'
 import App from './App.vue'
 import router from './router'
 import Cookies from 'js-cookie'
+import ToastService from 'primevue/toastservice'
 
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(ToastService)
 
 /* ROUTER GUARD */
 router.beforeEach(async (to, _from, next) => {

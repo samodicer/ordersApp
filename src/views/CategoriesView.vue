@@ -45,10 +45,12 @@ import { ref } from 'vue';
 import { useModalStore } from '@/stores/modal';
 import { ModalVariant } from '@/types/modal';
 import ConfirmationModal from '@/components/modals/ConfirmationModal.vue';
+import { useToast } from 'primevue/usetoast';
 
 const categories = ref<Category[]>([]);
 
 const modalStore = useModalStore();
+const toast = useToast();
 
 const openCreateCategoryModal = () => {
   modalStore.open({
@@ -93,6 +95,12 @@ const openConfirmationModal = (item: Category) => {
 const deleteCategory = (id: number) => { 
   apiDeleteCategory(id).then(() => { 
     getCategories();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Category has been successfully deleted.',
+      life: 3000
+    });
   })
 }
 

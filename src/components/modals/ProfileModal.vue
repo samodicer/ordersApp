@@ -78,13 +78,14 @@
 import Button from 'primevue/button';
 import Dialog from 'primevue/dialog';
 import InputText from 'primevue/inputtext';
+import FileUpload from 'primevue/fileupload';
 import { ref } from 'vue';
 import type { User } from '@/types/user';
 import type { FileUploadSelectEvent } from 'primevue/fileupload';
 import { apiUpdateUserProfile } from '@/api/user';
-import FileUpload from 'primevue/fileupload';
 import { API } from '@/api/api';
 import { useUserStore } from '@/stores/user';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps<{
   title: string;
@@ -96,6 +97,7 @@ const emit = defineEmits<{
 }>()
 
 const userStore = useUserStore();
+const toast = useToast();
 
 const email = ref(props.user.email);
 const firstname = ref(props.user.firstname);
@@ -125,6 +127,19 @@ const updateProfile = () => {
   apiUpdateUserProfile(formData).then((response) => { 
     emit('close');
     userStore.user = response.data.data;
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Your profile has been successfully updated.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 

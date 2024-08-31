@@ -117,6 +117,7 @@ import type { Order } from '@/types/order';
 import { ModalVariant } from '@/types/modal';
 import { apiGetOrderStatuses } from '@/api/status';
 import type { OrderStatus } from '@/types/status';
+import { useToast } from 'primevue/usetoast';
 
 const props = defineProps<{
   variant: ModalVariant;
@@ -128,6 +129,8 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void;
 }>()
+
+const toast = useToast();
 
 const customerName = ref(props.order ? props.order.customer_name : '');
 const customerAddress = ref(props.order ? props.order.customer_address: '');
@@ -154,6 +157,19 @@ const createOrder = () => {
   apiCreateOrder(data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order has been successfully created.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 
@@ -176,6 +192,19 @@ const updateOrder = () => {
   apiUpdateOrder(props.order.id, data).then(() => { 
     emit('close');
     props.successCallback();
+    toast.add({
+      severity: 'success',
+      summary: 'SUCCESS',
+      detail: 'Order has been successfully updated.',
+      life: 3000
+    });
+  }).catch((err) => { 
+    toast.add({
+      severity: 'error',
+      summary: 'ERROR',
+      detail: err.response.data.message,
+      life: 3000
+    });
   })
 }
 

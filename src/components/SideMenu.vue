@@ -8,12 +8,16 @@
     <template #start>
       <UserInfo />
     </template>
-    <template #item="{ item, props }">
-      <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-        <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+    <template #item="{ item }">
+      <router-link v-if="item.route" v-slot="{ navigate }" :to="item.route" custom>
+        <div 
+          class="p-2 cursor-pointer" 
+          :class="{ 'bg-[#ecfdf5]': item.route === activeItem }" 
+          @click="navigate"
+        >
           <span :class="item.icon" />
           <span class="ml-2">{{ item.label }}</span>
-        </a>
+        </div>
       </router-link>
     </template>
   </Menu>
@@ -29,12 +33,16 @@
         <template #start>
           <UserInfo />
         </template>
-        <template #item="{ item, props }">
-          <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
-            <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+        <template #item="{ item }">
+          <router-link v-if="item.route" v-slot="{ navigate }" :to="item.route" custom>
+            <div 
+              class="p-2 cursor-pointer" 
+              :class="{ 'bg-[#ecfdf5]': item.route === activeItem }" 
+              @click="navigate"
+            >
               <span :class="item.icon" />
               <span class="ml-2">{{ item.label }}</span>
-            </a>
+            </div>
           </router-link>
         </template>
       </Menu>
@@ -52,22 +60,32 @@ const breakpoints = useBreakpoints(breakpointsTailwind)
 const isMobile = breakpoints.smaller('md');
 
 const menu = ref();
+const activeItem = ref('/orders');
 
 const items = ref([
 {
     label: 'Profile',
     icon: 'pi pi-user',
-    route: '/profile'
+    route: '/profile',
+    command: () => {
+      activeItem.value = "/profile"
+    }
   },
   {
     label: 'Orders',
     icon: 'pi pi-receipt',
-    route: '/orders'
+    route: '/orders',
+    command: () => {
+      activeItem.value = "/orders"
+    }
   },
   {
     label: 'Categories',
     icon: 'pi pi-objects-column',
-    route: '/categories'
+    route: '/categories',
+    command: () => {
+      activeItem.value = "/categories"
+    }
   }
 ]);
 

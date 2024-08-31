@@ -1,6 +1,17 @@
 <template>
   <router-view />
+  <!-- MODALS -->
+  <TheModal />
+  <!-- TOASTS  -->
+  <Toast />
 </template>
+
+<script setup lang="ts">
+import Toast from 'primevue/toast';
+import TheModal from './components/layouts/TheModal.vue';
+
+document.title = 'ordersApp'
+</script>
 
 <style>
 html, body {
