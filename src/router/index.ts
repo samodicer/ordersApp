@@ -24,7 +24,7 @@ const routes = [
         }
       },
       {
-        path: '/order/:id',
+        path: '/order/:id/items',
         component: () => import('@/views/OrderItemsView.vue'),
         name: 'OrderItems',
         props: true,

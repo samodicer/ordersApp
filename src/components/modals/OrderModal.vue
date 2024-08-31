@@ -113,9 +113,10 @@ import type { Category } from '@/types/category';
 import { ref } from 'vue';
 import { apiGetUsers } from '@/api/user';
 import type { User } from '@/types/user';
-import type { Order, OrderStatus } from '@/types/order';
+import type { Order } from '@/types/order';
 import { ModalVariant } from '@/types/modal';
 import { apiGetOrderStatuses } from '@/api/status';
+import type { OrderStatus } from '@/types/status';
 
 const props = defineProps<{
   variant: ModalVariant;

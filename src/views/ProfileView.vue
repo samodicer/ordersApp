@@ -6,13 +6,15 @@
         style="background-color: #ece9fc; color: #2a1261" 
         shape="circle"
         size="xlarge"
-        :label="getInitials(userStore.user.fullName)"
+        :label="!userStore.user.avatar ? getInitials(userStore.user.fullName) : undefined"
+        :image="userStore.user.avatar ? `${API}/${userStore.user.avatar.image}` : undefined"
       />
       <span class="text-3xl">{{ userStore.user.fullName }}</span>
       <Button 
-        icon="pi pi-upload"
-        label="Upload avatar"
+        icon="pi pi-pencil"
+        label="Update profile"
         rounded
+        @click="openProfileModal(userStore.user)"
       />
     </div>
   </div>
@@ -21,8 +23,39 @@
 <script setup lang="ts">
 import Avatar from "primevue/avatar";
 import Button from "primevue/button";
+import ProfileModal from "@/components/modals/ProfileModal.vue";
 import { useUserStore } from "@/stores/user";
 import { getInitials } from "@/utils/user";
+import { apiGetUserById } from "@/api/user";
+import { API } from "@/api/api";
+import type { User } from "@/types/user";
+import { useModalStore } from "@/stores/modal";
 
 const userStore = useUserStore();
+const modalStore = useModalStore();
+
+const openProfileModal = (item: User) => {
+  modalStore.open({
+    component: ProfileModal,
+    props: {
+      title: 'Update profile',
+      user: item,
+    }
+  })
+}
+
+const getUserById = () => { 
+  if (!userStore.user) { 
+    return;
+  }
+  apiGetUserById(userStore.user.id).then((response) => { 
+    userStore.user = response.data.data;
+  })
+}
+
+const onCreated = () => { 
+  getUserById();
+}
+
+onCreated();
 </script>

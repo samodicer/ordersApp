@@ -98,7 +98,7 @@ const openConfirmationModal = (item: OrderItem) => {
     props: {
       title: `Delete order item "${item.name}"`,
       body: 'Are you sure you want to delete this order item?',
-      successCallback: async () => { 
+      successCallback: () => { 
         deleteOrderItem(parseInt(props.id), item.id);
       }
     }

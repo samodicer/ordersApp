@@ -3,7 +3,7 @@
     <!-- SIDEMENU-->
     <SideMenu />
     <!-- MAIN CONTENT-->
-    <Card class="flex-1 min-w-0">
+    <Card class="w-full min-w-0">
       <template #content>
         <router-view />
       </template>

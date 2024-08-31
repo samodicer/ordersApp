@@ -9,20 +9,7 @@
     <span class="flex justify-center mb-4">
       Order number #{{ order.order_number }}
     </span>
-    <div 
-      v-if="statusHistory.length === 1" 
-      class="flex items-center justify-center gap-6"
-    >
-      <small>
-        {{ useDateFormat(statusHistory[0].created_at, 'DD MMM YYYY HH:mm') }}
-      </small>
-      <i class="pi pi-arrow-right"/>
-      <Tag 
-        :style="{background: statusHistory[0].status.color, color: 'white'}"
-        :value="statusHistory[0].status.name" 
-      />
-    </div>
-    <Timeline v-else :value="statusHistory">
+    <Timeline :value="statusHistory">
       <template #opposite="slotProps">
         <small>
           {{ useDateFormat(slotProps.item.created_at, 'DD MMM YYYY HH:mm') }}

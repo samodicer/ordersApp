@@ -1,5 +1,5 @@
-import type { OrderStatus, StatusHistory } from '@/types/status'
 import request from './api'
+import type { OrderStatus, StatusHistory } from '@/types/status'
 import type { ResponseWrapper } from '@/types/api'
 
 export const apiGetOrderStatuses = (): ResponseWrapper<OrderStatus[]> => {
